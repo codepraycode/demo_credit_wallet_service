@@ -8,19 +8,7 @@ const createUserAccount = asyncHandler( async( req, res ) =>{
     
     /*
         METHOD: POST,
-        data:
-            - firstname: string
-            - lastname: string
-            - email: string
-            - password: string
-        
         Response: (201)
-            - firstname: string
-            - lastname: string
-            - email: string
-            - password: string
-            - dateCreated: date
-            - walletID: string
     */
 
 
@@ -30,7 +18,7 @@ const createUserAccount = asyncHandler( async( req, res ) =>{
     const alreadyExist = await UserAccountModel.checkAlreadyExists({ email, phonenumber });
 
     if(alreadyExist){
-        return res.status(400).send({ "message": alreadyExist });
+        return res.status(422).send({ "message": alreadyExist });
     }
 
     const user = await UserAccountModel.createUser(req.body);
@@ -46,21 +34,15 @@ const getUserAccount = asyncHandler( async( req, res, next) =>{
     /*
         METHOD: GET,
         Response: (200)
-            - firstname: string
-            - lastname: string
-            - email: string
-            - password: string
-            - dateCreated: date
-            - walletID: string
     */
 
-    return res.status(200).send({
-        firstname:"Lorem",
-        lastname:"Ipsum",
-        email:"lorem.ipsum@sample.com",
-        dateCreated: new Date().toISOString(),
-        walletID: new Date().toDateString()
-    });
+
+    const user = req.user;
+
+
+
+
+    return res.status(200).send(user.toJSON());
     
 });
 
