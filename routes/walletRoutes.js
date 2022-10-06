@@ -11,10 +11,11 @@ const { getWallet, fundWallet, walletTransfer, walletWithdraw } = require('../vi
 // Middlewares
 const { ensureAuthenticated } = require('../middlewares/authentionMiddleware');
 
-router.get('/:walletId', ensureAuthenticated);
-router.post('/fund', ensureAuthenticated);
-router.post('/transfer', ensureAuthenticated);
-router.post('/withdraw', ensureAuthenticated);
+router.use(ensureAuthenticated);
+// router.get('/:walletId', ensureAuthenticated);
+// router.post('/fund', ensureAuthenticated);
+// router.post('/transfer', ensureAuthenticated);
+// router.post('/withdraw', ensureAuthenticated);
 
 
 

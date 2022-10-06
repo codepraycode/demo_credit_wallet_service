@@ -11,8 +11,11 @@ const { createUserAccount, getUserAccount } = require('../views/accountView');
 
 // Middlewares
 const { ensureAuthenticated } = require('../middlewares/authentionMiddleware');
+const { validateCreateUserData } = require("../middlewares/validationMiddleware");
 
+// Apply middlewares
 router.get('/', ensureAuthenticated);
+router.post('/', validateCreateUserData);
 
 
 

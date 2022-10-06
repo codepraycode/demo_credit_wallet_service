@@ -4,7 +4,7 @@ const asyncHandler = require('express-async-handler');
 // Create Account view
 
 
-const createUserAccount = asyncHandler( async( req, res, next) =>{
+const createUserAccount = asyncHandler( async( req, res ) =>{
     
     /*
         METHOD: POST,
@@ -23,10 +23,13 @@ const createUserAccount = asyncHandler( async( req, res, next) =>{
             - walletID: string
     */
 
+
+    const { firstname, lastname, email, } = req.body;
+
     return res.status(201).send({
-        firstname:"Lorem",
-        lastname:"Ipsum",
-        email:"lorem.ipsum@sample.com",
+        firstname,
+        lastname,
+        email,
         dateCreated: new Date().toISOString(),
         walletID: new Date().toDateString()
     });

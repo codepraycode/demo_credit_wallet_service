@@ -16,8 +16,7 @@ const loginAccount = asyncHandler(async (req, res, next) => {
             - access: string
             - refresh: string
     */
-
-    return res.status(201).send({
+    return res.status(200).send({
         
         access: new Date().toDateString(),
         refresh: new Date().toDateString()

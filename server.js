@@ -50,3 +50,5 @@ app.use(error500); // incase of runtime error
 
 const PORT = process.env.PORT || 3010;
 app.listen(PORT, ()=> console.log(`Server running on PORT: ${PORT}`));
+
+module.exports = app;
