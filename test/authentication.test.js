@@ -21,14 +21,14 @@ describe("Unit testing /api route", ()=>{
 
 });
 
-
+const endpoint = "/api/authenticate/";
 
 
 describe("Unit testing /api/authenticate route", () => {
 
     it("should return 404 on GET", function () {
         return request(app)
-            .get("/api/authenticate/")
+            .get(endpoint)
             .then((response) => {
                 assert.equal(response.status, 404);
             })
@@ -40,7 +40,7 @@ describe("Unit testing /api/authenticate route", () => {
         const { email } = authCredentials;
 
         return request(app)
-            .post("/api/authenticate/")
+            .post(endpoint)
             .send({ email })
             .then((response) => {
 
@@ -53,7 +53,7 @@ describe("Unit testing /api/authenticate route", () => {
         const { password } = authCredentials;
 
         return request(app)
-            .post("/api/authenticate/")
+            .post(endpoint)
             .send({ password })
             .then((response) => {
 
@@ -64,7 +64,7 @@ describe("Unit testing /api/authenticate route", () => {
     it("should return 200 if authenticate", function () {
 
         return request(app)
-            .post("/api/authenticate/")
+            .post(endpoint)
             .send(authCredentials)
             .then((response) => {
 

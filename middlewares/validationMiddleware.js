@@ -8,15 +8,9 @@ const validateAuthenticationData = (req, res, next) => {
 
 
     // Validate that email and password was sent
-    if (!Boolean(email)) {
+    if (!Boolean(email) || !Boolean(password)) {
         return res.status(400).send({
-            message: "Email is required"
-        })
-    }
-
-    if (!Boolean(password)) {
-        return res.status(400).send({
-            message: "Password is required"
+            message: "Email or password is required"
         })
     }
 
