@@ -1,6 +1,8 @@
 // This middleware is to validate requests data
 // A middleware to check for required fields before proceeding
 
+const UserAccountModel = require("../models/userAccountModel");
+
 const validateAuthenticationData = (req, res, next) => {
     // email and password is required
 
@@ -22,7 +24,7 @@ const validateAuthenticationData = (req, res, next) => {
 const validateCreateUserData = (req, res, next) => {
     // email and password is required
 
-    const { firstname, lastname, email, password } = req.body;
+    const { firstname, lastname, email, password, phonenumber } = req.body;
 
 
     // Validate that email and password was sent
@@ -47,6 +49,12 @@ const validateCreateUserData = (req, res, next) => {
     if (!Boolean(lastname)) {
         return res.status(400).send({
             message: "Lastname is required"
+        })
+    }
+    
+    if (!Boolean(phonenumber)) {
+        return res.status(400).send({
+            message: "Phonenumber is required"
         })
     }
 

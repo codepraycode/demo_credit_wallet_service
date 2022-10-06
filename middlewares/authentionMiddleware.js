@@ -1,4 +1,4 @@
-
+const jwt = require('jsonwebtoken');
 
 const ensureAuthenticated = (req, res, next) => {
     // Token will be extracted from header
@@ -6,7 +6,7 @@ const ensureAuthenticated = (req, res, next) => {
 
     let token = req.headers['authorization'];
 
-    const [token_name, token_value] = token.toLowerCase().split("token");
+    const [token_name, token_value] = token.toLowerCase().split(" ");
 
     // Check against token name
     if (!Object.is(token_name.trim(), "token")) {

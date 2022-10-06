@@ -6,7 +6,6 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require("morgan");
 
-
 // Routes
 const authenticationRoutes = require('./routes/authenticationRoutes');
 const accountRoutes = require('./routes/accountRoutes');

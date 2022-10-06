@@ -1,5 +1,5 @@
 const asyncHandler = require('express-async-handler');
-
+const UserAccountModel = require('../models/userAccountModel');
 
 // Create Account view
 
@@ -24,15 +24,18 @@ const createUserAccount = asyncHandler( async( req, res ) =>{
     */
 
 
-    const { firstname, lastname, email, } = req.body;
+    const { email, phonenumber } = req.body;
 
-    return res.status(201).send({
-        firstname,
-        lastname,
-        email,
-        dateCreated: new Date().toISOString(),
-        walletID: new Date().toDateString()
-    });
+    // Check against record already exists
+    const alreadyExist = await UserAccountModel.checkAlreadyExists({ email, phonenumber });
+
+    if(alreadyExist){
+        return res.status(400).send({ "message": alreadyExist });
+    }
+
+    const user = await UserAccountModel.createUser(req.body);
+
+    return res.status(201).send(user.toJSON());
     
 
 });
