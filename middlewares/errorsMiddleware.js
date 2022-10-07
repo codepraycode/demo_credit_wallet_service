@@ -11,7 +11,6 @@ const error404 = ((req, res, next) => {
 
 const error500 = ((error, req, res, next) => {
     
-    console.log(error);
     res.status(error.status || 500);
 
     res.json({

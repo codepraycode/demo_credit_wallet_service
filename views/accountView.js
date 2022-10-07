@@ -1,6 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const UserAccountModel = require('../models/userAccountModel');
-const WalletModel = require('../models/walletModel');
+const {WalletModel} = require('../models/walletModel');
 
 // Create Account view
 

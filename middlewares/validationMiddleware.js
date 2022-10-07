@@ -96,7 +96,7 @@ const validateFundOrWithdrawWalletData = (req, res, next) => {
 const validateWalletTransferData = (req, res, next) => {
 
     // Extract and check required fields
-    const { recepientId, amount, naration, date } = req.body;
+    const { recipientId, amount, narration, date } = req.body;
 
     if (!Boolean(amount)) {
         return res.status(422).send({
@@ -110,13 +110,13 @@ const validateWalletTransferData = (req, res, next) => {
         })
     }
     
-    if (!Boolean(recepientId)) {
+    if (!Boolean(recipientId)) {
         return res.status(422).send({
-            message: "Recepient wallet id is required"
+            message: "recipient wallet id is required"
         })
     }
     
-    if (!Boolean(naration)) {
+    if (!Boolean(narration)) {
         return res.status(422).send({
             message: "Transaction narration is required"
         })

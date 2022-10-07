@@ -1,4 +1,4 @@
-const { USERS_TABLE_NAME, USERS_WALLET_TABLE_NAME } = require('../config');
+const { USERS_TABLE_NAME, USERS_WALLET_TABLE_NAME, USERS_TRANSACTION_TABLE_NAME } = require('../config');
 
 /**
  * @param { import("knex").Knex } knex
@@ -14,8 +14,6 @@ exports.up = function(knex) {
         table.string("password", 200).notNullable();
 
         // Meta data
-        // table.timestamp("created_at").defaultTo(knex.fn.now());
-        // table.timestamp("updated_at").defaultTo(knex.fn.now());
         table.timestamps(); // created_at and updated_at
 
     })
@@ -28,14 +26,37 @@ exports.up = function(knex) {
                 .integer('user_id')
                 .unsigned()
                 .index()
-                .references(USERS_WALLET_TABLE_NAME+'.id')
-                // .inTable(USERS_TABLE_NAME)
-                .onDelete('SET NULL');
+                .references(USERS_TABLE_NAME +'.id')
+                .onDelete('CASCADE');
             table.float("balance").defaultTo(0.00);
             // Meta data
-            // table.timestamp("created_at").defaultTo(knex.fn.now());
-            // table.timestamp("updated_at").defaultTo(knex.fn.now());
             table.timestamps(true, true); // created_at and updated_at
+        })
+
+        .createTable(USERS_TRANSACTION_TABLE_NAME, function (table) {
+            table.increments("id");
+
+            table.string("description").notNullable();
+            table.string("transaction_type").notNullable();
+            table.dateTime("transation_date").notNullable();
+            
+            table
+                .integer('user_id')
+                .unsigned()
+                .index()
+                .references(USERS_TABLE_NAME +'.id')
+                .onDelete('CASCADE');
+            
+            table
+                .integer('wallet_id')
+                .unsigned()
+                // .index()
+                .references(USERS_WALLET_TABLE_NAME +'.id')
+                .onDelete('CASCADE');
+            
+            table.float("amount").notNullable();
+            // Meta data
+            table.timestamp("created_at"); // created_at
         })
 };
 

@@ -75,8 +75,6 @@ class UserAccountModel {
 
         const [Id] = await db(USERS_TABLE_NAME).insert(data, ['id'])
 
-        // console.log(Id);
-
         return new UserAccountModel({...data, id:Id});
         
     }
