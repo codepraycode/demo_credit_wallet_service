@@ -10,16 +10,18 @@ const { getWallet, fundWallet, walletTransfer, walletWithdraw } = require('../vi
 
 // Middlewares
 const { ensureAuthenticated } = require('../middlewares/authentionMiddleware');
+const { validateFundOrWithdrawWalletData, validateWalletTransferData } = require('../middlewares/validationMiddleware');
+
 
 router.use(ensureAuthenticated);
-// router.get('/:walletId', ensureAuthenticated);
-// router.post('/fund', ensureAuthenticated);
-// router.post('/transfer', ensureAuthenticated);
-// router.post('/withdraw', ensureAuthenticated);
+
+router.post('/fund', validateFundOrWithdrawWalletData);
+router.post('/transfer', validateWalletTransferData);
+router.post('/withdraw', validateFundOrWithdrawWalletData);
 
 
 
-router.route('/:walletId').get(getWallet) // fund user account wallet
+router.route('/').get(getWallet) // fund user account wallet
 router.route('/fund').post(fundWallet) // fund user account wallet
 router.route('/transfer').post(walletTransfer) // transfer from authenticated user wallet to another wallet
 router.route('/withdraw').post(walletWithdraw) // withdraw from wallet

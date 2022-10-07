@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const UserAccountModel = require('../models/userAccountModel');
+const WalletModel = require('../models/walletModel');
 
 // Create Account view
 
@@ -23,6 +24,8 @@ const createUserAccount = asyncHandler( async( req, res ) =>{
 
     const user = await UserAccountModel.createUser(req.body);
 
+    await WalletModel.createWallet(user.id);
+
     return res.status(201).send(user.toJSON());
     
 
@@ -38,9 +41,6 @@ const getUserAccount = asyncHandler( async( req, res, next) =>{
 
 
     const user = req.user;
-
-
-
 
     return res.status(200).send(user.toJSON());
     

@@ -23,7 +23,7 @@ const loginAccount = asyncHandler(async (req, res, next) => {
 
     if(!user){
         return res.status(422).send({
-            message:"User with email does not exist"
+            message: "Incorrect email or password"
         });
     }
 

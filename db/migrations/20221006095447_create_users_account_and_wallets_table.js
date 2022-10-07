@@ -24,6 +24,13 @@ exports.up = function(knex) {
             table.increments("id");
 
             table.string("walletID").unique().notNullable();
+            table
+                .integer('user_id')
+                .unsigned()
+                .index()
+                .references(USERS_WALLET_TABLE_NAME+'.id')
+                // .inTable(USERS_TABLE_NAME)
+                .onDelete('SET NULL');
             table.float("balance").defaultTo(0.00);
             // Meta data
             // table.timestamp("created_at").defaultTo(knex.fn.now());
@@ -37,5 +44,5 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-    return knex.schema.dropTableIfExists("users_accounts").dropTableIfExists("wallets");
+    return knex.schema.dropTableIfExists(USERS_TABLE_NAME).dropTableIfExists(USERS_WALLET_TABLE_NAME);
 };

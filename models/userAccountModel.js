@@ -35,6 +35,10 @@ class UserAccountModel {
         // query is an object
         const users = await db.select().from(USERS_TABLE_NAME).where(query);
 
+        const user = users?.at(0);
+
+        if(!user) return null;
+
         return new UserAccountModel(users.at(0));
     }
 
@@ -63,14 +67,17 @@ class UserAccountModel {
         //     [ firstname, lastname, phonenumber, email, hashedPassword, date, date])
 
 
-        await db(USERS_TABLE_NAME).insert(
-            { firstname, lastname, phonenumber, 
-                email, password:hashedPassword, 
-                created_at: date, updated_at:date 
-            },
-        )
+        const data = {
+            firstname, lastname, phonenumber,
+            email, password: hashedPassword,
+            created_at: date, updated_at: date
+        };
 
-        return new UserAccountModel({ firstname, lastname, phonenumber, email, hashedPassword, created_at:date, updated_at:date });
+        const [Id] = await db(USERS_TABLE_NAME).insert(data, ['id'])
+
+        // console.log(Id);
+
+        return new UserAccountModel({...data, id:Id});
         
     }
     
@@ -98,11 +105,9 @@ class UserAccountModel {
 
     generateToken(){
 
-        let user = this;
-
         let claim = {id:this.id, email:this.email, created_at:this.created_at.toISOString()};
 
-        let token = jwt.sign(claim, SECRET, { algorithm: 'RS256' });
+        let token = jwt.sign(claim, SECRET);
 
         this.token = token;
     }
@@ -115,6 +120,8 @@ class UserAccountModel {
             const {id, email} = decoded;
             
             const user = await UserAccountModel.getUser({id, email});
+
+            if(!user) return ["Invalid authentication token", null];
 
             user.token = token;
 

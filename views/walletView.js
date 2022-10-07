@@ -1,32 +1,28 @@
 const asyncHandler = require('express-async-handler');
-
+const WalletModel = require('../models/walletModel');
 
 // User wallet view (authenticated user)
 
 
-const getWallet = asyncHandler(async (req, res, next) => {
+const getWallet = asyncHandler(async (req, res) => {
 
     /*
         METHOD: GET,
-        PARAMS: 
-            - walletId: string 
         Response: (200)
-            - walletID: string
-            - balance: string
-            - lastUpdate: string
     */
 
-    return res.status(200).send({
-        walletID: new Date().toDateString(),
-        balance:0.00,
-        lastUpdate: new Date().toISOString(),
-    });
+    const user = req.user;
+
+    const wallet = await WalletModel.getUserWallet(user.id);
+
+
+    return res.status(200).send(wallet.toJSON());
 
 
 });
 
 
-const fundWallet = asyncHandler(async (req, res, next) => {
+const fundWallet = asyncHandler(async (req, res) => {
 
     /*
         METHOD: POST,
@@ -42,17 +38,23 @@ const fundWallet = asyncHandler(async (req, res, next) => {
             - transaction_type: "WALLET_FUND"
     */
 
+    
+    const {amount, date} = req.body;
+    const user = req.user;
+
+    const wallet = await WalletModel.getUserWallet(user.id);
+
+    await wallet.topUpWallet({ amount:parseFloat(amount), date });
+
     return res.status(200).send({
-        walletID: new Date().toDateString(),
-        balance:0.00,
-        lastUpdate: new Date().toISOString(),
+        ...wallet.toJSON(),
         transaction_type: "WALLET_FUND",
     });
 
 
 });
 
-const walletTransfer = asyncHandler(async (req, res, next) => {
+const walletTransfer = asyncHandler(async (req, res) => {
 
     /*
         METHOD: POST,
@@ -69,17 +71,35 @@ const walletTransfer = asyncHandler(async (req, res, next) => {
             - transaction_type: "WALLET_TRANSFER"
     */
 
+    const { amount, date, recepientId, naration } = req.body;
+    const user = req.user;
+
+    const wallet = await WalletModel.getUserWallet(user.id);
+
+    try {
+        await wallet.transferFundsFromWallet({
+            amount: parseFloat(amount),
+            date,
+            recepientId
+        });
+    } catch (error) {
+        return res.status(error.status || 400).send({
+            message: error.message,
+            code: error.code || ""
+        })
+    }
+
+
     return res.status(200).send({
-        walletID: new Date().toDateString(),
-        balance:0.00,
-        lastUpdate: new Date().toISOString(),
+        ...wallet.toJSON(),
+        naration,
         transaction_type: "WALLET_TRANSFER",
     });
 
 
 });
 
-const walletWithdraw = asyncHandler(async (req, res, next) => {
+const walletWithdraw = asyncHandler(async (req, res) => {
 
     /*
         METHOD: POST,
@@ -94,10 +114,26 @@ const walletWithdraw = asyncHandler(async (req, res, next) => {
             - transaction_type: "WALLET_WITHDRAWAL"
     */
 
+    const { amount, date } = req.body;
+    const user = req.user;
+
+    const wallet = await WalletModel.getUserWallet(user.id);
+
+
+    try{
+        await wallet.withdrawFromWallet({
+            amount: parseFloat(amount),
+            date,
+        });
+    }catch (error){
+        return res.status(error.status || 400).send({
+            message: error.message,
+            code: error.code || ""
+        })
+    }
+
     return res.status(200).send({
-        walletID: new Date().toDateString(),
-        balance:0.00,
-        lastUpdate: new Date().toISOString(),
+        ...wallet.toJSON(),
         transaction_type: "WALLET_WITHDRAWAL",
     });
 
@@ -106,4 +142,7 @@ const walletWithdraw = asyncHandler(async (req, res, next) => {
 
 
 
-module.exports = { getWallet, fundWallet, walletTransfer, walletWithdraw };
+module.exports = { 
+    getWallet, fundWallet, 
+    walletTransfer, walletWithdraw 
+};
