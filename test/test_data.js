@@ -1,4 +1,5 @@
 
+const request = require('supertest');
 const authCredentials = { email: "lorem.ipsum@sample.com", password: "letmein" };
 
 const user1AccountData = {
@@ -25,7 +26,18 @@ const user1AccountData = {
     phonenumber:"+234 80344000000"
  };
 
+
+const endpoint = "/api/authenticate";
+
+async function authenticate(app) {
+    const res = await request(app)
+        .post(endpoint)
+        .send(authCredentials)
+
+    return res.body.token;
+}
+
 module.exports = {
     authCredentials, user2AccountData,
 user1AccountData,
-    user2AccountData, user3AccountData };
+    user2AccountData, user3AccountData, authenticate };

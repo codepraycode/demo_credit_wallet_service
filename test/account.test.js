@@ -4,12 +4,12 @@ const request = require('supertest');
 const app = require('../server');
 
 
-const { user1AccountData } = require('./test_data');
+const { user1AccountData, authenticate } = require('./test_data');
 
 const endpoint = "/api/account";
 
 
-describe("Unit testing /api/account route", () => {
+describe("Unit testing /api/account route: create", () => {
 
 
     it("should return 422 on invalid creation data", function () {
@@ -42,7 +42,33 @@ describe("Unit testing /api/account route", () => {
             .then((response) => {
                 assert.equal(response.status, 422);
             })
+    })    
+
+});
+
+describe("Unit testing /api/account route: get", () => {
+
+
+    it("should return 400 on get account without token", async function () {
+
+        const response = await request(app)
+            .get(endpoint);
+            
+        assert.equal(response.status, 400);
+    });
+
+    it("should return account details", async function () {
+
+        const token = await authenticate(app);
+        assert.equal(typeof token, 'string');
+
+        const response = await request(app)
+            .get(endpoint)
+            .set({Authorization: `Token ${token}`})
+
+        assert.equal(response.status, 200);
     })
+
     
     
 
