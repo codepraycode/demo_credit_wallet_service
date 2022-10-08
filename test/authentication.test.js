@@ -44,7 +44,7 @@ describe("Unit testing /api/authenticate route", () => {
             .send({ email })
             .then((response) => {
 
-                assert.equal(response.status, 400);
+                assert.equal(response.status, 422);
             })
     })
 
@@ -57,7 +57,7 @@ describe("Unit testing /api/authenticate route", () => {
             .send({ password })
             .then((response) => {
 
-                assert.equal(response.status, 400);
+                assert.equal(response.status, 422);
             })
     })
 
@@ -69,7 +69,7 @@ describe("Unit testing /api/authenticate route", () => {
             .then((response) => {
 
                 assert.equal(response.status, 200);
-                expect(response.body).to.have.all.keys('access', 'refresh');
+                expect(response.body).to.have.all.keys('token');
 
             })
     })

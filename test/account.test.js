@@ -4,7 +4,7 @@ const request = require('supertest');
 const app = require('../server');
 
 
-const { userAccountData } = require('./test_data');
+const { user1AccountData } = require('./test_data');
 
 const endpoint = "/api/account";
 
@@ -12,16 +12,15 @@ const endpoint = "/api/account";
 describe("Unit testing /api/account route", () => {
 
 
-    it("should return 400 on invalid creation data", function () {
+    it("should return 422 on invalid creation data", function () {
 
-        const { email, password, firstname } = userAccountData;
+        const { email, password, firstname } = user1AccountData;
 
         return request(app)
             .post(endpoint)
             .send({ email, password, firstname })
             .then((response) => {
-
-                assert.equal(response.status, 400);
+                assert.equal(response.status, 422);
             })
     })
 
@@ -29,14 +28,23 @@ describe("Unit testing /api/account route", () => {
 
         return request(app)
             .post(endpoint)
-            .send(userAccountData)
+            .send(user1AccountData)
             .then((response) => {
-
                 assert.equal(response.status, 201);
-                // it must contain walletID
-                expect(response.body).to.have.own.property("walletID").to.be.an("string")
             })
     })
+
+    it("should not create account with existing data", function () {
+
+        return request(app)
+            .post(endpoint)
+            .send(user1AccountData)
+            .then((response) => {
+                assert.equal(response.status, 422);
+            })
+    })
+    
+    
 
 });
 

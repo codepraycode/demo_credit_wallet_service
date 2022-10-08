@@ -65,5 +65,19 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-    return knex.schema.dropTableIfExists(USERS_TABLE_NAME).dropTableIfExists(USERS_WALLET_TABLE_NAME);
+
+    knex.schema.table(USERS_WALLET_TABLE_NAME, (table)=>{
+        table.dropForeign('user_id')
+    }).catch((err)=>console.error(err));
+    
+    knex.schema.table(USERS_TRANSACTION_TABLE_NAME, (table)=>{
+        table.dropForeign('user_id')
+        table.dropForeign('wallet_id')
+    }).catch((err)=>console.error(err));
+
+    
+    return knex.schema.dropTableIfExists(USERS_TABLE_NAME)
+            .dropTableIfExists(USERS_WALLET_TABLE_NAME)
+            .dropTableIfExists(USERS_TRANSACTION_TABLE_NAME)
+            
 };

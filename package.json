@@ -4,7 +4,7 @@
   "description": "An wallet service for Demo Credit mobile lending application",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --exit",
+    "test": "npm run migrate && mocha --exit",
     "serve": "node server.js",
     "start": "nodemon server.js",
     "migrate": "npm run rollback && node -r dotenv/config ./node_modules/knex/bin/cli.js migrate:latest --knexfile db/knexfile.js",
