@@ -17,13 +17,11 @@ const user1AccountData = {
     password:"letmein3",
     phonenumber:"+234 80343000000"
  };
-
- const user3AccountData = {
-    firstname: "Lorem",
-    lastname: "Ipsum",
-    email: "lorem1234.ipsum@sample.com",
-    password:"letmein3",
-    phonenumber:"+234 80344000000"
+ 
+ 
+ const fundWalletData = {
+    amount:5000,
+    date:"2020-10-10",
  };
 
 
@@ -39,5 +37,4 @@ async function authenticate(app) {
 
 module.exports = {
     authCredentials, user2AccountData,
-user1AccountData,
-    user2AccountData, user3AccountData, authenticate };
+    user1AccountData, fundWalletData, authenticate };
