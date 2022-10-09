@@ -15,6 +15,7 @@ exports.up = function(knex) {
 
         // Meta data
         table.timestamps(); // created_at and updated_at
+        table.boolean("deleted").defaultTo(false) // deleted flag
 
     })
 
@@ -31,6 +32,7 @@ exports.up = function(knex) {
             table.float("balance").defaultTo(0.00);
             // Meta data
             table.timestamps(true, true); // created_at and updated_at
+            table.boolean("deleted").defaultTo(false) // deleted flag
         })
 
         .createTable(USERS_TRANSACTION_TABLE_NAME, function (table) {
@@ -57,6 +59,7 @@ exports.up = function(knex) {
             table.float("amount").notNullable();
             // Meta data
             table.timestamp("created_at"); // created_at
+            table.boolean("deleted").defaultTo(false) // deleted flag
         })
 };
 

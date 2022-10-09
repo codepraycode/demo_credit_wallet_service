@@ -25,6 +25,12 @@ const user1AccountData = {
  };
 
 
+ const transferWalletData = {
+    amount:1000,
+    date:"2020-10-10",
+ };
+
+
 const endpoint = "/api/authenticate";
 
 async function authenticate(app) {
@@ -36,5 +42,6 @@ async function authenticate(app) {
 }
 
 module.exports = {
-    authCredentials, user2AccountData,
-    user1AccountData, fundWalletData, authenticate };
+    authCredentials, user2AccountData, user1AccountData, 
+    fundWalletData, transferWalletData, authenticate 
+};

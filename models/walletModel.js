@@ -5,6 +5,7 @@ const { db, USERS_WALLET_TABLE_NAME, USERS_TRANSACTION_TABLE_NAME } = require('.
 const WALLET_FUND = "WALLET_FUND";
 const WALLET_TRANSFER = "WALLET_TRANSFER";
 const WALLET_WITHDRAWAL = "WALLET_WITHDRAWAL";
+const UNRESOLVED_DESTINATION = "UNRESOLVED_DESTINATION";
 
 class TransactionModel {
 
@@ -133,7 +134,28 @@ class WalletModel {
         .where({id:this.id})
         .update(data);
     }
+
+    static async deleteWallet(user_id, forReal=false) {
+        // Delete user data here
+        if(forReal){
+            await db(USERS_WALLET_TABLE_NAME).where({ user_id }).del();
+            await db(USERS_TRANSACTION_TABLE_NAME).where({ user_id }).del();
+        }else{
+            await db(USERS_WALLET_TABLE_NAME).where({ user_id }).update({ deleted: true });
+        }
+    }
     
+    async delete(forReal=false) {
+        // Delete user data here
+        const user_id = this.id;
+        
+        if(forReal){
+            await db(USERS_WALLET_TABLE_NAME).where({ user_id }).del();
+            await db(USERS_TRANSACTION_TABLE_NAME).where({ user_id }).del();
+        }else{
+            await db(USERS_WALLET_TABLE_NAME).where({ user_id }).update({ deleted: true });
+        }
+    }
 
     async topUpWallet ({amount, date, narration}){
         // Increase user wallet balance
@@ -208,7 +230,7 @@ class WalletModel {
 
             const error = new Error(`Could not resolve receipient wallet, got wallet id:${recipientId}`)
 
-            error.code = "UNRESOLVED_DESTINATION"
+            error.code = UNRESOLVED_DESTINATION
             error.status = 400
 
             throw error
@@ -222,6 +244,8 @@ class WalletModel {
         const transaction = await wallet.withdrawFromWallet({ amount,narration,date });
 
         await receiving_wallet.topUpWallet({ amount, narration, date });
+
+        transaction.transaction_type = WALLET_TRANSFER;
 
         return transaction
 
@@ -241,5 +265,5 @@ class WalletModel {
 module.exports = { 
     WalletModel, TransactionModel,
     WALLET_FUND, WALLET_TRANSFER,
-    WALLET_WITHDRAWAL
+    WALLET_WITHDRAWAL, UNRESOLVED_DESTINATION
 };

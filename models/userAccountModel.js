@@ -33,7 +33,7 @@ class UserAccountModel {
     static async getUser(query){
         // Get a user by query
         // query is an object
-        const users = await db.select().from(USERS_TABLE_NAME).where(query);
+        const users = await db.select().from(USERS_TABLE_NAME).where({...query, deleted:0});
 
         const user = users?.at(0);
 
@@ -41,17 +41,6 @@ class UserAccountModel {
 
         return new UserAccountModel(users.at(0));
     }
-
-    // static async getAllUsers (){
-    //     // Get all users
-    //     const users = await db.select().from(USERS_TABLE_NAME);
-
-    //     const user = users.at(0);
-
-    //     if(!Boolean(user)) return null;
-
-    //     return new UserAccountModel(user);
-    // }
 
 
     static async createUser(user_data){
@@ -77,6 +66,27 @@ class UserAccountModel {
 
         return new UserAccountModel({...data, id:Id});
         
+    }
+
+    async delete(forReal = false) {
+        // Delete user data here
+        let user_id = this.id;
+        
+        if (forReal) {
+            await db(USERS_TABLE_NAME).where({ id: user_id }).del();
+        } else {
+            await db(USERS_TABLE_NAME).where({ id:user_id }).update({ deleted: true });
+        }
+    }
+
+    static async deleteUser(query, forReal = false) {
+        // Delete user data here
+
+        if (forReal) {
+            await db(USERS_TABLE_NAME).where(query).del();
+        } else {
+            await db(USERS_TABLE_NAME).where(query).update({ deleted: true });
+        }
     }
     
     checkPassword(password, hashedPassword){

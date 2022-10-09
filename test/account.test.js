@@ -1,9 +1,11 @@
 const assert = require('assert');
 const request = require('supertest');
 const app = require('../server');
+const {expect} = require('chai');
 
 
-const { user1AccountData, authenticate } = require('./test_data');
+const { user1AccountData } = require('./test_data');
+const UserAccountModel = require('../models/userAccountModel');
 
 const endpoint = "/api/account";
 
@@ -21,9 +23,9 @@ describe("Unit testing /api/account route: create", () => {
             .then((response) => {
                 assert.equal(response.status, 422);
             })
-    })
+    })   
 
-    it("should return 201 on created account", function () {
+    it("should return 201 on created account (expected)", function () {
 
         return request(app)
             .post(endpoint)
@@ -41,14 +43,23 @@ describe("Unit testing /api/account route: create", () => {
             .then((response) => {
                 assert.equal(response.status, 422);
             })
-    })    
+    })
 
 });
 
 describe("Unit testing /api/account route: get", () => {
 
+    var user;
 
-    it("should return 400 on get account without token", async function () {
+    before(async function () {
+        const { email: user1Email } = user1AccountData;
+
+        user = await UserAccountModel.getUser({ email: user1Email });
+
+        user.generateToken();
+    })
+
+    it("should return 400 on get account details without auth token", async function () {
 
         const response = await request(app)
             .get(endpoint);
@@ -56,21 +67,19 @@ describe("Unit testing /api/account route: get", () => {
         assert.equal(response.status, 400);
     });
 
-    it("should return account details", async function () {
+    it("should return account details with auth token (expected)", async function () {
 
-        const token = await authenticate(app);
-        assert.equal(typeof token, 'string');
+        const {token} = user;
+        expect(token).to.be.a("string");
 
         const response = await request(app)
             .get(endpoint)
             .set({Authorization: `Token ${token}`})
 
         assert.equal(response.status, 200);
+        expect(response.body).to.have.property('id');
     })
-
-    
-    
-
 });
+
 
 
