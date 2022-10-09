@@ -2,16 +2,14 @@
 
 const express = require("express");
 
-const router = express.Router();
-
-
 // Views
 const { createUserAccount, getUserAccount } = require('../views/accountView');
-
 
 // Middlewares
 const { ensureAuthenticated } = require('../middlewares/authentionMiddleware');
 const { validateCreateUserData } = require("../middlewares/validationMiddleware");
+
+const router = express.Router();
 
 // Apply middlewares
 router.get('/', ensureAuthenticated);

@@ -24,6 +24,21 @@ class TransactionModel {
         this.timestamp = created_at;
     }
 
+
+    toJSON() {
+        // Serialize instance
+        return {
+            id: this.id,
+            wallet_id: this.wallet_id,
+            user_id: this.user_id,
+            amount: this.amount,
+            description: this.description,
+            transaction_type: this.transaction_type,
+            transation_date: this.transation_date,
+            created_at: this.timestamp,
+        }
+    }
+
     static async createTransaction(data) {
         // Create user wallet transaction
 
@@ -52,24 +67,10 @@ class TransactionModel {
 
         return transactions.map((each) => new TransactionModel(each));
     }
-    
-
-
-    toJSON() {
-        return {
-            id: this.id,
-            wallet_id: this.wallet_id,
-            user_id: this.user_id,
-            amount: this.amount,
-            description: this.description,
-            transaction_type: this.transaction_type,
-            transation_date: this.transation_date,
-            created_at: this.timestamp,
-        }
-    }
 
     static toJSON(transactions) {
         // transactions of type TransactionModel
+        // serialize mutiple instances
 
         return transactions.map((transaction)=> transaction.toJSON())
     }
@@ -89,44 +90,6 @@ class WalletModel {
         this.updated_at = updated_at;
     }
 
-    static async createWallet(user_id) {
-        // Create user wallet
-        const date = new Date();
-
-        const walletID = Math.random().toString(36).substring(2);
-
-        const balance = 0.00;
-
-        const data = {
-            walletID, user_id, balance,
-            created_at: date, updated_at: date
-        }
-
-        await db(USERS_WALLET_TABLE_NAME).insert(data);
-
-        return new WalletModel(data);
-
-    }
-
-    static async getUserWallet(userId) {
-        // Get a user WALLET
-        const wallets = await db.select().from(USERS_WALLET_TABLE_NAME).where(`user_id`, userId);
-
-        return new WalletModel(wallets.at(0));
-    }
-    
-    static async getWalletByQuery(query) {
-        // Get a user WALLET
-        const wallets = await db.select().from(USERS_WALLET_TABLE_NAME).where(query);
-
-        const wallet = wallets.at(0);
-        
-        if(!wallet) return null;
-
-        return new WalletModel(wallet);
-    }
-
-
     async save (data){
 
 
@@ -135,35 +98,25 @@ class WalletModel {
         .update(data);
     }
 
-    static async deleteWallet(user_id, forReal=false) {
-        // Delete user data here
-        if(forReal){
-            await db(USERS_WALLET_TABLE_NAME).where({ user_id }).del();
-            await db(USERS_TRANSACTION_TABLE_NAME).where({ user_id }).del();
-        }else{
-            await db(USERS_WALLET_TABLE_NAME).where({ user_id }).update({ deleted: true });
-        }
-    }
-    
-    async delete(forReal=false) {
-        // Delete user data here
+    async delete(forReal = false) {
+        // Delete user wallet
         const user_id = this.id;
-        
-        if(forReal){
+
+        if (forReal) {
             await db(USERS_WALLET_TABLE_NAME).where({ user_id }).del();
             await db(USERS_TRANSACTION_TABLE_NAME).where({ user_id }).del();
-        }else{
+        } else {
             await db(USERS_WALLET_TABLE_NAME).where({ user_id }).update({ deleted: true });
         }
     }
 
-    async topUpWallet ({amount, date, narration}){
+    async topUpWallet({ amount, date, narration }) {
         // Increase user wallet balance
-        let wallet = this; 
+        let wallet = this;
 
         const balance = wallet.balance + Number(amount);
 
-        await wallet.save({balance, updated_at:date});
+        await wallet.save({ balance, updated_at: date });
 
 
         const transaction_data = {
@@ -184,11 +137,11 @@ class WalletModel {
 
     }
 
-    async withdrawFromWallet({ amount, date, narration }){
+    async withdrawFromWallet({ amount, date, narration }) {
         // Deduct user wallet balance
         let wallet = this;
 
-        if (wallet.balance < Number(amount)){
+        if (wallet.balance < Number(amount)) {
 
             const error = new Error("Insufficient funds")
 
@@ -220,12 +173,12 @@ class WalletModel {
         return transaction;
     }
 
-    async transferFundsFromWallet({ recipientId, amount,narration,date}){
+    async transferFundsFromWallet({ recipientId, amount, narration, date }) {
         // Transfer funds from one wallet to another
 
         // Get receipient
         const receiving_wallet = await WalletModel.getWalletByQuery({ walletID: recipientId });
-        
+
         if (!Boolean(receiving_wallet)) {
 
             const error = new Error(`Could not resolve receipient wallet, got wallet id:${recipientId}`)
@@ -236,12 +189,12 @@ class WalletModel {
             throw error
         }
 
-        
+
         const wallet = this;
 
         // First withdraw
 
-        const transaction = await wallet.withdrawFromWallet({ amount,narration,date });
+        const transaction = await wallet.withdrawFromWallet({ amount, narration, date });
 
         await receiving_wallet.topUpWallet({ amount, narration, date });
 
@@ -260,6 +213,54 @@ class WalletModel {
             updated_at: this.updated_at
         }
     }
+
+    static async createWallet(user_id) {
+        // Create user wallet
+        const date = new Date();
+
+        const walletID = Math.random().toString(36).substring(2);
+
+        const balance = 0.00;
+
+        const data = {
+            walletID, user_id, balance,
+            created_at: date, updated_at: date
+        }
+
+        await db(USERS_WALLET_TABLE_NAME).insert(data);
+
+        return new WalletModel(data);
+
+    }
+
+    static async getUserWallet(userId) {
+        // Get a user WALLET
+        const wallets = await db.select().from(USERS_WALLET_TABLE_NAME).where(`user_id`, userId);
+
+        return new WalletModel(wallets.at(0));
+    }
+
+    static async getWalletByQuery(query) {
+        // Get a user WALLET
+        const wallets = await db.select().from(USERS_WALLET_TABLE_NAME).where(query);
+
+        const wallet = wallets.at(0);
+
+        if (!wallet) return null;
+
+        return new WalletModel(wallet);
+    }
+
+    static async deleteWallet(user_id, forReal=false) {
+        // Delete user data here
+        if(forReal){
+            await db(USERS_WALLET_TABLE_NAME).where({ user_id }).del();
+            await db(USERS_TRANSACTION_TABLE_NAME).where({ user_id }).del();
+        }else{
+            await db(USERS_WALLET_TABLE_NAME).where({ user_id }).update({ deleted: true });
+        }
+    }
+    
 }
 
 module.exports = { 

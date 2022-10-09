@@ -1,6 +1,5 @@
 const asyncHandler = require('express-async-handler');
-const { WalletModel, TransactionModel, WALLET_FUND, WALLET_TRANSFER,
-    WALLET_WITHDRAWAL } = require('../models/walletModel');
+const { WalletModel, TransactionModel } = require('../models/walletModel');
 
 // User wallet view (authenticated user)
 
@@ -8,8 +7,7 @@ const { WalletModel, TransactionModel, WALLET_FUND, WALLET_TRANSFER,
 const getWallet = asyncHandler(async (req, res) => {
 
     /*
-        METHOD: GET,
-        Response: (200)
+        Returns the wallet data of the authenticated user
     */
 
     const user = req.user;
@@ -25,16 +23,8 @@ const getWallet = asyncHandler(async (req, res) => {
 const fundWallet = asyncHandler(async (req, res) => {
 
     /*
-        METHOD: POST,
-        DATA: 
-            - walletId: string
-            - amount: number,
-            - narration: string,
-            - date: string
-        Response: (200)
-            - walletID: string
-            - balance: string
-            - lastUpdate: string,
+        Data is already validated through the validation middleware
+        response contains a transaction type as below
             - transaction_type: "WALLET_FUND"
     */
 
@@ -56,17 +46,8 @@ const fundWallet = asyncHandler(async (req, res) => {
 const walletTransfer = asyncHandler(async (req, res) => {
 
     /*
-        METHOD: POST,
-        DATA: 
-            - walletId: string
-            - recipientId: string,
-            - amount: number,
-            - narration: string,
-            - date: string
-        Response: (200)
-            - walletID: string
-            - balance: string
-            - lastUpdate: string,
+        Data is already validated through the validation middleware
+        response contains a transaction type as below
             - transaction_type: "WALLET_TRANSFER"
     */
 
@@ -100,15 +81,8 @@ const walletTransfer = asyncHandler(async (req, res) => {
 const walletWithdraw = asyncHandler(async (req, res) => {
 
     /*
-        METHOD: POST,
-        DATA: 
-            - walletId: string
-            - amount: number,
-            - date: string
-        Response: (200)
-            - walletID: string
-            - balance: string
-            - lastUpdate: string,
+        Data is already validated through the validation middleware
+        response contains a transaction type as below
             - transaction_type: "WALLET_WITHDRAWAL"
     */
 
@@ -140,8 +114,11 @@ const walletWithdraw = asyncHandler(async (req, res) => {
 const getTransactions = asyncHandler(async (req, res) => {
 
     /*
-        METHOD: GET,
-        Response: (200)
+        Returns transactions of the authenticated user account wallet
+
+        if transaction_id is passed in request parameter, returns
+        the transaction id(if it belongs to the authenticated user's account wallet)
+        otherwise a 404 response
     */
 
     const user = req.user;

@@ -7,14 +7,7 @@ const UserAccountModel = require('../models/userAccountModel');
 const loginAccount = asyncHandler(async (req, res, next) => {
 
     /*
-        METHOD: POST,
-        data:
-            - email: string
-            - password: string
-        
-        Response: (200)
-            - access: string
-            - refresh: string
+        Data is already validated through the validation middleware
     */
 
     const {email, password} = req.body;

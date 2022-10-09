@@ -30,6 +30,47 @@ class UserAccountModel {
         this.token = null;
     }
 
+    async delete(forReal = false) {
+        // Delete user data here
+        let user_id = this.id;
+
+        if (forReal) {
+            await db(USERS_TABLE_NAME).where({ id: user_id }).del();
+        } else {
+            await db(USERS_TABLE_NAME).where({ id: user_id }).update({ deleted: true });
+        }
+    }
+
+    checkPassword(password, hashedPassword) {
+        // check if password is correct
+
+        return bcrypt.compareSync(password, hashedPassword);
+    }
+
+    generateToken() {
+
+        let claim = { id: this.id, email: this.email, created_at: this.created_at.toISOString() };
+
+        let token = jwt.sign(claim, SECRET);
+
+        this.token = token;
+    }
+
+    toJSON() {
+        return {
+            id: this.id,
+            firstname: this.firstname,
+            lastname: this.lastname,
+            phonenumber: this.phonenumber,
+            email: this.email,
+            // password:this.password,
+
+            created_at: this.created_at,
+            updated_at: this.updated_at
+        }
+    }
+
+
     static async getUser(query){
         // Get a user by query
         // query is an object
@@ -68,17 +109,7 @@ class UserAccountModel {
         
     }
 
-    async delete(forReal = false) {
-        // Delete user data here
-        let user_id = this.id;
-        
-        if (forReal) {
-            await db(USERS_TABLE_NAME).where({ id: user_id }).del();
-        } else {
-            await db(USERS_TABLE_NAME).where({ id:user_id }).update({ deleted: true });
-        }
-    }
-
+    
     static async deleteUser(query, forReal = false) {
         // Delete user data here
 
@@ -89,12 +120,7 @@ class UserAccountModel {
         }
     }
     
-    checkPassword(password, hashedPassword){
-        // check if password is correct
-
-        return bcrypt.compareSync(password, hashedPassword);
-    }
-
+    
     static async checkAlreadyExists(fields){
 
         for (let [field, field_value] of Object.entries(fields) ) {
@@ -111,14 +137,6 @@ class UserAccountModel {
         return null;
     }
 
-    generateToken(){
-
-        let claim = {id:this.id, email:this.email, created_at:this.created_at.toISOString()};
-
-        let token = jwt.sign(claim, SECRET);
-
-        this.token = token;
-    }
     
     static async decodeToken(token){
 
@@ -141,20 +159,6 @@ class UserAccountModel {
         }
     }
 
-
-    toJSON(){
-        return {
-            id: this.id,
-            firstname:this.firstname,
-            lastname:this.lastname,
-            phonenumber:this.phonenumber,
-            email:this.email,
-            // password:this.password,
-
-            created_at: this.created_at,
-            updated_at: this.updated_at
-        }
-    }
 }
 
 module.exports = UserAccountModel;

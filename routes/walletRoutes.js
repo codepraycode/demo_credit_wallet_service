@@ -2,9 +2,6 @@
 
 const express = require("express");
 
-const router = express.Router();
-
-
 // Views
 const { getWallet, fundWallet, walletTransfer, walletWithdraw, getTransactions } = require('../views/walletView');
 
@@ -16,6 +13,8 @@ const { validateFundOrWithdrawWalletData,
 
 const { loadWallet } = require('../middlewares/loadWalletMiddleware');
 
+
+const router = express.Router();
 
 router.use(ensureAuthenticated);
 router.use(loadWallet);

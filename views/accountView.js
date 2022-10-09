@@ -8,8 +8,7 @@ const {WalletModel} = require('../models/walletModel');
 const createUserAccount = asyncHandler( async( req, res ) =>{
     
     /*
-        METHOD: POST,
-        Response: (201)
+        Data is already validated through the validation middleware
     */
 
 
@@ -33,12 +32,8 @@ const createUserAccount = asyncHandler( async( req, res ) =>{
 
 
 const getUserAccount = asyncHandler( async( req, res, next) =>{
-    
-    /*
-        METHOD: GET,
-        Response: (200)
-    */
 
+    // Returns data of the authenticated user
 
     const user = req.user;
 
