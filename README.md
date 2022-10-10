@@ -81,7 +81,6 @@ Things to note:
 | Endpoint  | Method | Response Codes | Requirements | Notes |
 |--------- | :----------: | :--------: | :-----------: | :-----------: |
 | `/wallet/transactions` | GET   | 200, 400     | authentication | Get authenticated user wallet transactions.
-
 | `/wallet/transactions/:transaction_id` | GET   | 200, 400, 404     | authentication | Get authenticated user wallet transaction using `transaction_id` in request parameter.
 
 > Usage of endpoints can be seen/tested in [postman collection](#notes)
