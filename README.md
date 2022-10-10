@@ -42,7 +42,7 @@ Things to note:
         ...
     }
     ```
-    to request header. `{{token}}` should be replaced with generated user account token, which is in response to `/authenticate` request.
+    to request header. `{{token}}` should be replaced with generated user account token, which is in response to `/api/authenticate` request.
 
 <br/>
 
@@ -51,9 +51,9 @@ Things to note:
 
 | Endpoint  | Method | Response Codes | Requirements | Notes |
 |--------- | :----------: | :--------: | :-----------: | :-----------: |
-| `/account/` | POST   | 201, 422     | none | Create user data, account wallet is created automatically with 0.00 balance.
-| `/account/` | GET   | 200, 400     | authentication | Get the authenticated account data.
-| `/authenticate/` | POST   | 200, 422     | none | creates and returns authentication token.
+| `/api/account/` | POST   | 201, 422     | none | Create user data, account wallet is created automatically with 0.00 balance.
+| `/api/account/` | GET   | 200, 400     | authentication | Get the authenticated account data.
+| `/api/authenticate/` | POST   | 200, 422     | none | creates and returns authentication token.
 
 > Usage of endpoints can be seen/tested in [postman collection](#notes)
 
@@ -65,10 +65,10 @@ Things to note:
 
 | Endpoint  | Method | Response Codes | Requirements | Notes |
 |--------- | :----------: | :--------: | :-----------: | :-----------: |
-| `/wallet/` | GET   | 200, 400     | authentication | Get authenticated user wallet data.
-| `/wallet/fund` | POST   | 200, 400     | authentication | Top up wallet balance, amount sent must be non-negative and greater than 0.
-| `/wallet/transfer` | POST   | 200, 400     | authentication | Deduct authenticated user wallet balance and send deducted amount to recipient wallet as topup, amount sent must be non-negative and greater than 0.
-| `/wallet/withdraw` | POST   | 200, 400     | authentication | Deduct authenticated user wallet balance, amount sent must be non-negative and greater than 0.
+| `/api/wallet/` | GET   | 200, 400     | authentication | Get authenticated user wallet data.
+| `/api/wallet/fund` | POST   | 200, 400     | authentication | Top up wallet balance, amount sent must be non-negative and greater than 0.
+| `/api/wallet/transfer` | POST   | 200, 400     | authentication | Deduct authenticated user wallet balance and send deducted amount to recipient wallet as topup, amount sent must be non-negative and greater than 0.
+| `/api/wallet/withdraw` | POST   | 200, 400     | authentication | Deduct authenticated user wallet balance, amount sent must be non-negative and greater than 0.
  
 > Usage of endpoints can be seen/tested in [postman collection](#notes)
 
@@ -80,8 +80,8 @@ Things to note:
 
 | Endpoint  | Method | Response Codes | Requirements | Notes |
 |--------- | :----------: | :--------: | :-----------: | :-----------: |
-| `/wallet/transactions` | GET   | 200, 400     | authentication | Get authenticated user wallet transactions.
-| `/wallet/transactions/:transaction_id` | GET   | 200, 400, 404     | authentication | Get authenticated user wallet transaction using `transaction_id` in request parameter.
+| `/api/wallet/transactions` | GET   | 200, 400     | authentication | Get authenticated user wallet transactions.
+| `/api/wallet/transactions/:transaction_id` | GET   | 200, 400, 404     | authentication | Get authenticated user wallet transaction using `transaction_id` in request parameter.
 
 > Usage of endpoints can be seen/tested in [postman collection](#notes)
 
@@ -93,7 +93,8 @@ Things to note:
 - Creat a `.env` file from `.env.example` file in the root directory,
 `.env.example` has the environment variables used in the application. [see variable names with description and data type expected](#environment-variables)
 
-- run `npm install` or `yarn install` to install dependencies, then open in browser.
+- run `npm install` or `yarn install` to install dependencies.
+- run `npm run` or `yarn run` to start project server(e.g `http://localhost:3010/api`)
 
 > make sure to run `npm run migrate` at least once, for knex to setup database. <br/><br/> to run tests, run `npm test`.
 
