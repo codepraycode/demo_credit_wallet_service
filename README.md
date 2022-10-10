@@ -4,7 +4,22 @@ This is my submission repository to [Lendsqr Backend Engineer Assessment](https:
 
 <br/>
 
-# About
+# Table of contents
+- [Introduction](#introduction)
+- [Features](#features)
+- [Endpoints](#endpoints)
+    - [User account endpoints](#user-account)
+    - [User wallet endpoints](#user-wallet)
+- [How to install](#how-to-install)
+    - [Setup](#setup)
+    - [Environment variables](#environment-variables)
+- [Tech stack and tools](#tech-stack-and-tools)
+- [ER Diagram](#er-diagram)
+- [Notes](#notes)
+
+<br/>
+
+# Introduction
 Demo Credit is a mobile lending app. Borrowers will have a wallet to receive loans they have been granted and also send the money for repayments. This is the backend service for Demo Credit mobile app.
 
 <hr/> <br/><br/>
