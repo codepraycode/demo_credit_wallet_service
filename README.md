@@ -114,6 +114,13 @@ Things to note:
 
 <hr/> <br/><br/>
 
+### ER-Diagram
+<p align="center">
+  <img src="db/ER-Diagram.png" width="350" title="ER-Diagram image" alt="ER-Diagram">
+</p>
+
+> [Link to diagram source](https://dbdesigner.page.link/yQ5v3zfpbrRWhgU39)
+
 ### Notes
 <hr/>
 
