@@ -139,8 +139,8 @@ Things to note:
 ### Notes
 <hr/>
 
-> Before using endpoints in postman collections, please create environment variables of:
-> - `url` : domain name
+> Before using endpoints in postman collections, please create environment variables in postman, which includes:
+> - `url` : domain name with the /api path (e.g `http:localhost:3010/api` without a trailing slash)
 > - `token` : authentication token
 
 <br/>
