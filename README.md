@@ -20,7 +20,7 @@ This is my submission repository to [Lendsqr Backend Engineer Assessment](https:
 <br/>
 
 # Introduction
-Demo Credit is a mobile lending app. Borrowers will have a wallet to receive loans they have been granted and also send the money for repayments. This is the backend service for Demo Credit mobile app.
+Demo Credit is a mobile lending app. Borrowers will have an account to receive loans they have been granted and also send the money for repayments. This is the backend service for Demo Credit mobile app.
 
 <hr/> <br/><br/>
 
