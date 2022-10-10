@@ -118,6 +118,7 @@ Things to note:
 <hr/>
 Postman collection: [------](somethinf)
 
+ER-Diagram: [View diagram on dbdesigner](https://dbdesigner.page.link/yQ5v3zfpbrRWhgU39)<br/>
 Author: [Precious Olusola](https://github.com/codepraycode)<br/>
 Email: preciousolusola16@gmail.com
 
