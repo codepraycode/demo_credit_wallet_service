@@ -1,6 +1,6 @@
 
 const error404 = ((req, res, next) => {
-    const error = new Error("Not found");
+    const error = new Error("resource not found");
 
     error.status = 404;
 
@@ -13,10 +13,16 @@ const error500 = ((error, req, res, next) => {
     
     res.status(error.status || 500);
 
-    res.json({
+    const data = {
         message: error.message,
-        stack: process.env.NODE_ENV !== "development" ? "No stack attached" : error.stack,
-    });
+    }
+
+
+    if ( Object.is(process.env.NODE_ENV, "development") ){
+        data.stack = error.stack
+    }
+
+    res.json(data);
 });
 
 
