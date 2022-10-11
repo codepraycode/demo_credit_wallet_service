@@ -55,7 +55,7 @@ Things to note:
 | `/api/account/` | GET   | 200, 400     | authentication | Get the authenticated account data.
 | `/api/authenticate/` | POST   | 200, 422     | none | creates and returns authentication token.
 
-> Usage of endpoints can be seen/tested in [postman collection](#notes)
+> Usage of endpoints can be seen/tested in [postman collection]((https://links.getpostman.com/ls/click?upn=3y7nOEZSJOF1v-2Fv7UyshsFwjG-2B4WlOUfNd7JXVgH4-2B9PhygGhJ9L5M8NBEU7pvcukohvPbWLnIFeeA-2FJfhdN9KPnuta3mZ1OjOEXMGlwln2ne-2FcJ7EDTQ75YXphcNOyTd4JTmgDOXqYYKY7qPQQ6Dx-2Bu79c26Kfzp9xE4Ck9CTzU-2FUMpWnZ-2Fzkmn-2BVEE-2FcLCgJyW_t4dSyhpYn45UrIvWEZgqWjwRenYu2z2oLnzcJPHzDfhqVqk47pp57ttb7YBSw62-2BiHesUNAwfJWqV6QujfJf5sBJInGqngV5YTtYqIivALxAjlmyqfS58evOT0r9K07pYuJ9Vma0bay3ovD6Tbqt-2BqMUijpdI4YKCbAKfXNHzxCc3aejR61v2BAmUIOeonSbWgmrvw0V7-2BQtjxBQC6shspaLzcFbFXRZ3so6zBvGV12CobNxPGdbE8b0Ns4fcmvC6MqSJUDK-2F6POiqPYfOsvzQVl3ep6WmjCDDbD7QSn0HQUbzavto5cQVyhxQVc6V4z-2BFL8N93XFynGE7gpAQb-2B-2F5zt3E-2Btk0QHBA4jd19UKDc-3D))
 
 <br/><br/>
 
@@ -70,7 +70,7 @@ Things to note:
 | `/api/wallet/transfer` | POST   | 200, 400     | authentication | Deduct authenticated user wallet balance and send deducted amount to recipient wallet as topup, amount sent must be non-negative and greater than 0.
 | `/api/wallet/withdraw` | POST   | 200, 400     | authentication | Deduct authenticated user wallet balance, amount sent must be non-negative and greater than 0.
  
-> Usage of endpoints can be seen/tested in [postman collection](#notes)
+> Usage of endpoints can be seen/tested in [postman collection]((https://links.getpostman.com/ls/click?upn=3y7nOEZSJOF1v-2Fv7UyshsFwjG-2B4WlOUfNd7JXVgH4-2B9PhygGhJ9L5M8NBEU7pvcukohvPbWLnIFeeA-2FJfhdN9KPnuta3mZ1OjOEXMGlwln2ne-2FcJ7EDTQ75YXphcNOyTd4JTmgDOXqYYKY7qPQQ6Dx-2Bu79c26Kfzp9xE4Ck9CTzU-2FUMpWnZ-2Fzkmn-2BVEE-2FcLCgJyW_t4dSyhpYn45UrIvWEZgqWjwRenYu2z2oLnzcJPHzDfhqVqk47pp57ttb7YBSw62-2BiHesUNAwfJWqV6QujfJf5sBJInGqngV5YTtYqIivALxAjlmyqfS58evOT0r9K07pYuJ9Vma0bay3ovD6Tbqt-2BqMUijpdI4YKCbAKfXNHzxCc3aejR61v2BAmUIOeonSbWgmrvw0V7-2BQtjxBQC6shspaLzcFbFXRZ3so6zBvGV12CobNxPGdbE8b0Ns4fcmvC6MqSJUDK-2F6POiqPYfOsvzQVl3ep6WmjCDDbD7QSn0HQUbzavto5cQVyhxQVc6V4z-2BFL8N93XFynGE7gpAQb-2B-2F5zt3E-2Btk0QHBA4jd19UKDc-3D))
 
 <br/><br/>
 
@@ -83,7 +83,7 @@ Things to note:
 | `/api/wallet/transactions` | GET   | 200, 400     | authentication | Get authenticated user wallet transactions.
 | `/api/wallet/transactions/:transaction_id` | GET   | 200, 400, 404     | authentication | Get authenticated user wallet transaction using `transaction_id` in request parameter.
 
-> Usage of endpoints can be seen/tested in [postman collection](#notes)
+> Usage of endpoints can be seen/tested in [postman collection]((https://links.getpostman.com/ls/click?upn=3y7nOEZSJOF1v-2Fv7UyshsFwjG-2B4WlOUfNd7JXVgH4-2B9PhygGhJ9L5M8NBEU7pvcukohvPbWLnIFeeA-2FJfhdN9KPnuta3mZ1OjOEXMGlwln2ne-2FcJ7EDTQ75YXphcNOyTd4JTmgDOXqYYKY7qPQQ6Dx-2Bu79c26Kfzp9xE4Ck9CTzU-2FUMpWnZ-2Fzkmn-2BVEE-2FcLCgJyW_t4dSyhpYn45UrIvWEZgqWjwRenYu2z2oLnzcJPHzDfhqVqk47pp57ttb7YBSw62-2BiHesUNAwfJWqV6QujfJf5sBJInGqngV5YTtYqIivALxAjlmyqfS58evOT0r9K07pYuJ9Vma0bay3ovD6Tbqt-2BqMUijpdI4YKCbAKfXNHzxCc3aejR61v2BAmUIOeonSbWgmrvw0V7-2BQtjxBQC6shspaLzcFbFXRZ3so6zBvGV12CobNxPGdbE8b0Ns4fcmvC6MqSJUDK-2F6POiqPYfOsvzQVl3ep6WmjCDDbD7QSn0HQUbzavto5cQVyhxQVc6V4z-2BFL8N93XFynGE7gpAQb-2B-2F5zt3E-2Btk0QHBA4jd19UKDc-3D))
 
 <hr/><br/><br/>
 
