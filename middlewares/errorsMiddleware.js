@@ -25,5 +25,4 @@ const error500 = ((error, req, res, next) => {
     res.json(data);
 });
 
-
 module.exports = { error404, error500 };

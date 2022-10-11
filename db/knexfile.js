@@ -48,7 +48,7 @@ module.exports = {
     client: 'mysql2',
     connection: {
       host: Host,
-      port: Port,
+      // port: Port,
       user: User,
       password: Password,
       database: Database
