@@ -15,7 +15,7 @@ const error500 = ((error, req, res, next) => {
 
     res.json({
         message: error.message,
-        stack: process.env.NODE_ENV === "production" ? "No stack attached" : error.stack,
+        stack: process.env.NODE_ENV !== "development" ? "No stack attached" : error.stack,
     });
 });
 

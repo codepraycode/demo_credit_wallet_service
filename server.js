@@ -42,7 +42,12 @@ app.use(morgan('common')); // enable request log
 // app.use(express.static(path.join(__dirname, 'static')));
 
 // Routes
-app.use("/api", swaggerUI.serve, swaggerUI.setup(openApiOptions, {explorer:true}));
+// app.use("/api", swaggerUI.serve, swaggerUI.setup(openApiOptions, {explorer:true}));
+app.get("/api", ((req,res)=>{
+    return res.send({
+        message:"Welcome to Demo Credit Wallet Service"
+    })
+}));
 
 app.use("/api/authenticate", authenticationRoutes);
 app.use("/api/account", accountRoutes);
