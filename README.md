@@ -11,6 +11,7 @@ This is my submission repository to [Lendsqr Backend Engineer Assessment](https:
     - [User account endpoints](#user-account)
     - [User wallet endpoints](#user-wallet)
 - [How to install](#how-to-install)
+    - [Requirements](#requirements)
     - [Setup](#setup)
     - [Environment variables](#environment-variables)
 - [Tech stack and tools](#tech-stack-and-tools)
@@ -88,6 +89,12 @@ Things to note:
 <hr/><br/><br/>
 
 # How to install
+
+### Requirements
+Before setting up this project, you should have the following:
+- [NodeJS installed](https://nodejs.dev/en/download/)
+- A RDMS installed (MYSQL expecially)
+
 ### Setup
 - create a mysql database and take note of the connection credentials
 - Creat a `.env` file from `.env.example` file in the root directory,
