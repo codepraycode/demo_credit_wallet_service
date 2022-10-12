@@ -151,7 +151,7 @@ To start app, run `npm run migrate` at least once, for knex to setup database.
 
 <br/>
 
-Live Url: [Hosted on Heroku](https://git.heroku.com/precious-lendsqr-be-test.git)<br/>
+Live Url: [Hosted on Heroku](https://precious-lendsqr-be-test.herokuapp.com/)<br/>
 Postman collection: [use endpoints in postman](https://links.getpostman.com/ls/click?upn=3y7nOEZSJOF1v-2Fv7UyshsFwjG-2B4WlOUfNd7JXVgH4-2B9PhygGhJ9L5M8NBEU7pvcukohvPbWLnIFeeA-2FJfhdN9KPnuta3mZ1OjOEXMGlwln2ne-2FcJ7EDTQ75YXphcNOyTd4JTmgDOXqYYKY7qPQQ6Dx-2Bu79c26Kfzp9xE4Ck9CTzU-2FUMpWnZ-2Fzkmn-2BVEE-2FcLCgJyW_t4dSyhpYn45UrIvWEZgqWjwRenYu2z2oLnzcJPHzDfhqVqk47pp57ttb7YBSw62-2BiHesUNAwfJWqV6QujfJf5sBJInGqngV5YTtYqIivALxAjlmyqfS58evOT0r9K07pYuJ9Vma0bay3ovD6Tbqt-2BqMUijpdI4YKCbAKfXNHzxCc3aejR61v2BAmUIOeonSbWgmrvw0V7-2BQtjxBQC6shspaLzcFbFXRZ3so6zBvGV12CobNxPGdbE8b0Ns4fcmvC6MqSJUDK-2F6POiqPYfOsvzQVl3ep6WmjCDDbD7QSn0HQUbzavto5cQVyhxQVc6V4z-2BFL8N93XFynGE7gpAQb-2B-2F5zt3E-2Btk0QHBA4jd19UKDc-3D)
 <br/>ER-Diagram: [View diagram on dbdesigner](https://dbdesigner.page.link/yQ5v3zfpbrRWhgU39)<br/>
 Author: [Precious Olusola](https://github.com/codepraycode)<br/>
