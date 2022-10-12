@@ -78,7 +78,7 @@ Things to note:
 
 ## User Wallet Transactions (Extra)
 
-> This endpoints were not part of requirements, but discerned to be useful.
+> The following endpoints were not part of requirements, but discerned to be useful.
 
 | Endpoint  | Method | Response Codes | Requirements | Notes |
 |--------- | :----------: | :--------: | :-----------: | :-----------: |
