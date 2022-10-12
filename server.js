@@ -43,9 +43,18 @@ app.use(morgan('common')); // enable request log
 
 // Routes
 // app.use("/api", swaggerUI.serve, swaggerUI.setup(openApiOptions, {explorer:true}));
-app.get("/api", ((req,res)=>{
+app.get("/", ((req,res)=>{
+    
     return res.send({
-        message:"Welcome to Demo Credit Wallet Service"
+        message:"Welcome to Demo Credit Wallet Service",
+        repository: "https://github.com/codepraycode/demo_credit_wallet_service",
+    })
+}));
+app.get("/api", ((req,res)=>{
+    
+    return res.send({
+        message:"Welcome to Demo Credit Wallet Service",
+        repository: "https://github.com/codepraycode/demo_credit_wallet_service",
     })
 }));
 
