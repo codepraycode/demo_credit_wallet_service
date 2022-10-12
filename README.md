@@ -49,8 +49,9 @@ Things to note:
 
 <br/>
 
-## User account
+## User account 
 
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/16739918-72d48fd4-1a5c-4c31-8bf7-0f39501024aa?action=collection%2Ffork&collection-url=entityId%3D16739918-72d48fd4-1a5c-4c31-8bf7-0f39501024aa%26entityType%3Dcollection%26workspaceId%3D0d42a23f-2175-4e1e-95f3-0ceef346f71c)
 
 | Endpoint  | Method | Response Codes | Requirements | Notes |
 |--------- | :----------: | :--------: | :-----------: | :-----------: |
@@ -58,12 +59,12 @@ Things to note:
 | `/api/account/` | GET   | 200, 400     | authentication | Get the authenticated account data.
 | `/api/authenticate/` | POST   | 200, 422     | none | creates and returns authentication token.
 
-> Usage of endpoints can be seen/tested in [postman collection](https://links.getpostman.com/ls/click?upn=3y7nOEZSJOF1v-2Fv7UyshsFwjG-2B4WlOUfNd7JXVgH4-2B9PhygGhJ9L5M8NBEU7pvcukohvPbWLnIFeeA-2FJfhdN9KPnuta3mZ1OjOEXMGlwln2ne-2FcJ7EDTQ75YXphcNOyTd4JTmgDOXqYYKY7qPQQ6Dx-2Bu79c26Kfzp9xE4Ck9CTzU-2FUMpWnZ-2Fzkmn-2BVEE-2FcLCgJyW_t4dSyhpYn45UrIvWEZgqWjwRenYu2z2oLnzcJPHzDfhqVqk47pp57ttb7YBSw62-2BiHesUNAwfJWqV6QujfJf5sBJInGqngV5YTtYqIivALxAjlmyqfS58evOT0r9K07pYuJ9Vma0bay3ovD6Tbqt-2BqMUijpdI4YKCbAKfXNHzxCc3aejR61v2BAmUIOeonSbWgmrvw0V7-2BQtjxBQC6shspaLzcFbFXRZ3so6zBvGV12CobNxPGdbE8b0Ns4fcmvC6MqSJUDK-2F6POiqPYfOsvzQVl3ep6WmjCDDbD7QSn0HQUbzavto5cQVyhxQVc6V4z-2BFL8N93XFynGE7gpAQb-2B-2F5zt3E-2Btk0QHBA4jd19UKDc-3D)
 
 <br/><br/>
 
 ## User Wallet
 
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/16739918-72d48fd4-1a5c-4c31-8bf7-0f39501024aa?action=collection%2Ffork&collection-url=entityId%3D16739918-72d48fd4-1a5c-4c31-8bf7-0f39501024aa%26entityType%3Dcollection%26workspaceId%3D0d42a23f-2175-4e1e-95f3-0ceef346f71c)
 
 | Endpoint  | Method | Response Codes | Requirements | Notes |
 |--------- | :----------: | :--------: | :-----------: | :-----------: |
@@ -77,6 +78,8 @@ Things to note:
 <br/><br/>
 
 ## User Wallet Transactions (Extra)
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/16739918-72d48fd4-1a5c-4c31-8bf7-0f39501024aa?action=collection%2Ffork&collection-url=entityId%3D16739918-72d48fd4-1a5c-4c31-8bf7-0f39501024aa%26entityType%3Dcollection%26workspaceId%3D0d42a23f-2175-4e1e-95f3-0ceef346f71c)
 
 > The following endpoints were not part of requirements, but discerned to be useful.
 
